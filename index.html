@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Заказ машина</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ress@5.0.2/dist/ress.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+</head>
+
+<body>
+  <header>
+
+    <h1><a href="index.html">Заказ машина<span>(ザカースマシーナ)</span></a></h1>
+  </header>
+
+  <main>
+    <audio id="overSound" preload="auto">
+      <source src="balloon.wav" type="audio/wav">
+    </audio>
+    <button id="copy">結果をコピー</button>
+    <button id="detail">詳細を見る</button>
+    <button id="shutdown"></button>
+    <div id="menuDisplay">
+      <ul>
+        <li>テキストの追加に関して
+          <ul>
+            <li>Enter押下と追加ボタンのクリックの両方に対応しています。</li>
+            <li>文字列を追加するたびに入力欄はリセットされるので、削除する手間が省けます。</li>
+            <li>空白のまま追加することはできません。</li>
+            <li>最大50文字まで対応</li>
+          </ul>
+        </li>
+        <li>文字列のテーブルに関して
+          <ul>
+            <li>削除ボタンで同じ列にある文字列を削除できます。</li>
+            <li>「一括削除」で追加した文字列を全て削除できます。</li>
+            <li>文字列が多数追加された場合、縦にスクロールすることができます。</li>
+          </ul>
+        </li>
+        <li>WD1Aを追加ボタンについて
+          <ul>
+            <li>クリックすれば、文字列に2022年度のWD1Aのメンバーをそれぞれ追加できます。(残念ながら薄井はいない)</li>
+            <li>クリック時に、すでに別の文字列が存在する場合は追加確認の画面が表示されます。</li>
+          </ul>
+        </li>
+        <li>分割機能について
+          <ul>
+            <li>分割するを選択すると、ちょうど真ん中の位置に境界線を引き、2分割できます。</li>
+            <li>ランダムにした文字列の個数が奇数だった場合、1分割目が多くなります。(例えば、13個の要素を2分割した場合、7 / 6 に分割される)</li>
+            <li>結果を表示した後でも分割の可否は選択可能です。</li>
+          </ul>
+        </li>
+        <li>スタートボタンについて
+          <ul>
+            <li>ランダムにする文字列の個数が0の場合はアラートが表示されます。</li>
+            <li>文字列に変更がない場合でも、無限に再度並び替えの処理を実行可能です。</li>
+          </ul>
+        </li>
+        <li>表示サイズ調節バーについて
+          <ul>
+            <li>結果表示欄のフォントサイズを変更しているだけの簡易なものなので、表示が崩れる場合があります。</li>
+            <li>1rem ~ 10remまで変更可能です(初期値は1.2rem)。使用するブラウザによって表示される文字サイズには異なりがあります。</li>
+          </ul>
+        </li>
+        <li>モーダルで拡大表示について
+          <ul>
+            <li>現在表示されている結果をモーダルで拡大表示できます。</li>
+            <li>分割状態に応じて、境界線も同時に表示可能です。</li>
+            <li>表示されている白い背景部分はクリックしてもモーダル解除されないので、結果をコピーしたりすることも可能です。</li>
+            <li>ランダムにした結果が存在しない場合アラートでエラーを出力します。</li>
+          </ul>
+        </li>
+        <li>結果をコピーボタンについて
+          <ul>
+            <li>結果をクリップボードにコピー</li>
+            <li>モーダル状態でも表示されます。</li>
+            <li>「分割する」が選択されている場合、境界線部分でハイフンが挿入された状態でコピーされます。</li>
+            <li>クリック後、クリップボードにコピーした事とコピーされた内容が出力されます。</li>
+            <li>ランダムにした結果が存在しない場合アラートでエラーを出力します。</li>
+          </ul>
+        </li>
+        <li>右上、？マークについて
+          <ul>
+            <li>マウスシャッフル(左右に振る)で「ランダムにした結果を削除する」「ランダムにした結果を削除する かつ
+              追加された文字列も削除する」の2つの動作が出来る機能について、？にマウスホバー時に説明します。</li>
+            <li>マウスシャッフルは`#resaltTable`内で300px以上マウスを左右に移動 || 回数が4回
+              のときに動作します。マウスカーソルが`#resultTable`から離れた場合、カウントはリセットされます。</li>
+            <li>マウスシャッフル時に追加した文字列がぞんざいしない場合、確認画面は表示されず、結果のみが削除されます。</li>
+          </ul>
+        </li>
+        <li>シャットダウンボタン(赤いボタン)について
+          <ul>
+            <li>クリックでタブを閉じます。Windows XPを完全にパ○ってます。シャットダウンの音声が流れるので音量に気をつけてください。5秒後にタブが閉じます。</li>
+            <li>ホバー時にWindows XPのバルーン音声とともにツールチップが表示されます。画像は頑張ってギザギザフォントまで再現しました。</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div id="toolTip">?</div>
+    <div class="mainWrap">
+      <div class="main">
+        <div class="optionBox">
+          <p>表示サイズ</p>
+          <input type="range" id="range" min="1" max="10" value="1.2" step="0.1">
+          <span id="value">1.2</span>
+          <button id="modal">モーダルで拡大表示</button>
+        </div>
+        <div id="resultTable">
+        </div>
+      </div>
+      <div class="side">
+        <div class="sideWrap">
+          <h2>任意の文字列を追加 <span>(追加後 文字列はクリアされます / Enterで追加可能)</span></h2>
+          <div class="form">
+            <input type="text" id="text" maxlength="50" value="">
+            <button id="add" class="button"></button>
+          </div>
+          <h2>追加された文字列 <span>(スクロール可)</span><input type="button" value="WD1Aを追加" id="wd1a"></h2>
+
+          <div class="addTextWrap">
+            <table class="addText" id="textTable">
+              <tr>
+                <td>文字列</td>
+                <td><button id="allClear">一括削除</button></td>
+              </tr>
+            </table>
+          </div>
+
+          <h2>分割</h2>
+          <input type="radio" name="split" id="onSplit">
+          <label for="onSplit">分割する</label>
+          <input type="radio" name="split" id="offSplit" checked>
+          <label for="offSplit">分割しない</label>
+          <button class="btn-82" id="start"><span>Random Start</span></button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="js/index.js"></script>
+</body>
+
+</html>
