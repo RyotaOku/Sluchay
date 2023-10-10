@@ -5,7 +5,8 @@ This tool allows you to input arbitrary strings, shuffle them randomly, and numb
 *(概要: 任意の文字列をランダムに並べ替え、ナンバリングします。何かの順番を決めるのに便利です。)*
 
 ### Screenshot or GIF
-*To be added.*
+![FireShot Capture 039 - Заказ машина - click ecc ac jp](https://github.com/RyotaOku/Sluchay/assets/114388961/b7603f37-726c-4b6e-a634-11608dda79d9)
+
 
 ### Operating Environment
 Developed and tested primarily on the latest version of Chrome. It probably works on most modern browsers, but there might be layout issues on browsers like Safari. Please be cautious and test before using extensively.
